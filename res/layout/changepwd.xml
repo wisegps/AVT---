@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" 
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<TextView 
+		android:id="@+id/PassWord_TV" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:text="@string/oldPassWord"/>
+	<EditText 
+		android:id="@+id/oldPassWord_ET" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:password="true"
+		android:textSize="18sp"/>
+	<TextView 
+		android:id="@+id/PassWord_TV" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:text="@string/newPassWord"/>
+	<EditText 
+		android:id="@+id/newPassWord_ET" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:password="true"
+		android:textSize="18sp"/>
+	<TextView 
+		android:id="@+id/PassWord_TV" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:text="@string/newPassWordToo"/>
+	<EditText 
+		android:id="@+id/newPassWordTwo_ET" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:password="true"
+		android:textSize="18sp"/>
+</LinearLayout>

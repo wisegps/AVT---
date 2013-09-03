@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView 
+   		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		android:text="@string/locus_dialog_start"/>
+    <RelativeLayout 
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:gravity="center_vertical">
+    	<EditText 
+    		android:id="@+id/et_start"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:enabled="false"
+    		android:layout_toLeftOf="@+id/iv_start"/>
+
+    	<ImageView
+    	    android:id="@+id/iv_start"
+    	    android:layout_width="40dp"
+    	    android:layout_height="40dp"
+    	    android:layout_alignParentRight="true"
+    	    android:layout_centerVertical="true"
+    	    android:src="@drawable/time" />
+
+    </RelativeLayout>
+    <TextView
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/locus_dialog_stop" />
+    <RelativeLayout 
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:gravity="center_vertical"
+    >
+		<EditText 
+    		android:id="@+id/et_stop"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:enabled="false"
+    		android:layout_toLeftOf="@+id/iv_stop"
+    	/>
+    	<ImageView 
+    		android:id="@+id/iv_stop"
+    		android:layout_width="40dp"
+    		android:layout_height="40dp"
+    		android:src="@drawable/time"
+    		android:layout_alignParentRight="true"
+    		android:layout_centerVertical="true"
+    	/>
+    </RelativeLayout>
+</LinearLayout>
