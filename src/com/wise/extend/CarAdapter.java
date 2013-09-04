@@ -19,7 +19,7 @@ public class CarAdapter extends BaseAdapter {
 	private Context context = null;
 	private LayoutInflater myInflater = null;
 	private static List<CarInfo> items;
-	private Bitmap car_bad, car_off, car_on,car_out;
+	private Bitmap car_alert, car_off, car_on,car_out;
 	private int selectItem = 0;
 	
 	public void setSelectItem(int selectItem){
@@ -28,7 +28,7 @@ public class CarAdapter extends BaseAdapter {
 	public CarAdapter(Context context, List<CarInfo> it) {
 		this.context = context;
 		items = it;
-		car_bad = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_bad);
+		car_alert = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_alert);
 		car_off = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_off);
 		car_on = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_on);
 		car_out = BitmapFactory.decodeResource(context.getResources(), R.drawable.car_out);
@@ -64,7 +64,7 @@ public class CarAdapter extends BaseAdapter {
 				holder.caro.setImageBitmap(car_out);
 				break;
 			case 2:
-				holder.caro.setImageBitmap(car_bad);
+				holder.caro.setImageBitmap(car_alert);
 				break;
 			case 3:
 				holder.caro.setImageBitmap(car_on);

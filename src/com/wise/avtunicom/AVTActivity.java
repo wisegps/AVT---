@@ -108,7 +108,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	EditText et_start,et_stop;
 	SeekBar sb_speed;
 	ProgressDialog Dialog;
-	TextView tv_statistic,tv_map_change,tv_address,tv_SearchStatistic;
+	TextView tv_map_change,tv_address,tv_SearchStatistic;
 	Button bt_ZoomDown,bt_ZoomUp;
 	
 	//全局变量
@@ -143,7 +143,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	View popView;     // 气泡窗口
 	String startTime;
 	String stopTime;
-	private static final int PageNumber = 4; //每次加载的数目
+	private static final int PageNumber = 20; //每次加载轨迹的数目
 	int contacter_item = 0; //选中spinner第几项
 	int page_total; //当前页的记录数，用来判断轨迹是否加载完毕
 	int page = 1;   //当前页数，用来加载轨迹
@@ -151,11 +151,11 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	/**
 	 * 每次加载车辆数目
 	 */
-	final int Car_Page_Number = 10;
+	final int Car_Page_Number = 20;
 	/**
 	 * 上一次获取的车辆数据
 	 */
-	int Car_Page_total = 10;
+	int Car_Page_total = 0;
 	int Car_Page = 1; //当前页数
 	String latestTime = ""; //更新车辆位置
 	/**
@@ -291,11 +291,11 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 			switch (msg.what) {
 			case GetContacter://获取组信息
 				JsonContacter(msg.obj.toString());
+				break;
+			case GetContacterCar://获取组下的车辆
 				if(Dialog != null){
 					Dialog.dismiss();
 				}
-				break;
-			case GetContacterCar://获取组下的车辆
 				JsonContacterCar(msg.obj.toString());
 				if(Car_Page_total == Car_Page_Number){
 					lv_cars.setPullLoadEnable(true);
@@ -309,6 +309,8 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 					if(carinfos.size() > 0){
 						//查找位置
 						new Thread(new NetThread.GetLocation(carinfos.get(item).getLat(), carinfos.get(item).getLon(), handler,GetLocation,AVTActivity.this)).start();
+						Point = new GeoPoint(AllStaticClass.StringToInt(carinfos.get(item).getLat()), AllStaticClass.StringToInt(carinfos.get(item).getLon()));
+						mMapController.animateTo(Point);
 					}					
 				}else{
 					carAdapter.notifyDataSetChanged();
@@ -331,13 +333,13 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				break;
 			case GetRefreshData: //解析更新数据并绑定
 				jsonRefreshData(msg.obj.toString().trim());
-				if(!IsLock){//TODO 如果在轨迹回访不刷新数据
+				if(!IsLock){//如果在轨迹回访不刷新数据
 					if (popView != null) {
 						popView.setVisibility(View.GONE);
 					}
 					LastPoint = Point;//跟踪用到
 					System.out.println("刷新所有数据");
-					carAdapter.notifyDataSetChanged();//TODO 刷新列表数据
+					carAdapter.notifyDataSetChanged();//刷新列表数据
 					//当前车位置
 					if(carinfos.size() > 0){
 						Point = new GeoPoint(AllStaticClass.StringToInt(carinfos.get(item).getLat()), AllStaticClass.StringToInt(carinfos.get(item).getLon()));
@@ -363,6 +365,9 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				break;
 			//验证密码返回
 			case UpdatePwd:
+				if(Dialog != null){
+					Dialog.dismiss();
+				}
 				String resultPwd = msg.obj.toString();
 				if(resultPwd.indexOf("0")> 0){
 					Toast.makeText(AVTActivity.this, R.string.change_pwd_true,Toast.LENGTH_SHORT).show();
@@ -374,7 +379,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				jsonPoiData(msg.obj.toString().trim());
 				break;
 			case GetTotal:
-				//TODO 得到统计信息
+				//得到统计信息
 //				try{
 //					TotalData totalData = ResolveData.ResolveTotal(theResult);
 //					String statistic = getString(R.string.total)+": "+totalData.getToatal()+"          "
@@ -435,6 +440,9 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 			new Thread(new NetThread.GetDataThread(handler, url, GetContacterCar)).start();
 		} catch (JSONException e) {
 			e.printStackTrace();
+			if(Dialog != null){
+				Dialog.dismiss();
+			}
 		}
 	}
 	boolean isSpinnerShow = false;
@@ -581,20 +589,25 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				carInfo.setSpeed((int)Double.parseDouble(jsonData.getString("speed")));
 				carInfo.setRcv_time(GetSystem.ChangeTime(jsonData.getString("rcv_time"),0));
 				//String status = ResolveData.getStatusDesc(rcv_time, gps_flag, speed, ResolveData.getUniStatusDesc(jsonArrayStatus), ResolveData.getUniAlertsDesc(jsonArrayAlerts));
-	    		//carInfo.setMDTStatus(status);
+	    		//TODO carInfo.setMDTStatus(status);
 				carPath.add(carInfo);
+				Log.d(TAG, carInfo.toString());
 			}				
 			if(IsFristLocus){
 				if(jsonArray.length() == 0){
 					Toast.makeText(AVTActivity.this, R.string.monitor_locus_null,Toast.LENGTH_LONG).show();
 				}else{
+					IsLock = true;
+					Log.d(TAG, "显示数据");
 					IsFristLocus = false;
 					layout_bar.setVisibility(View.VISIBLE);//显示轨迹控制条
-					locus();
+					bar.setMax(Integer.valueOf(jsonObject.getString("total")));	
+					ClearOverlay(carOverlays);//TODO 删除车辆标记
+					ClearOverlay(pathOverlays);//删除轨迹
 				}
 			}else{
 				if(jsonArray.length() != 0){
-					locus();
+					//locus();
 					ISSTARTBAR = true;
 					new Thread(new startBarThread()).start();
 				}						
@@ -614,10 +627,9 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	/**
 	 * 把运行轨迹画到地图上
 	 */
-	private void locus() {
-		bar.setMax(carPath.size());		
+	private void locus1() {	
 		IsLock = true;
-		ClearOverlay(carOverlays);//删除车辆标记
+		ClearOverlay(carOverlays);//TODO 删除车辆标记
 		ClearOverlay(pathOverlays);//删除轨迹
 		for (int i = 0; i < carPath.size() - 1; i++) {//循环画出轨迹线
 			GeoPoint startPoint = new GeoPoint(AllStaticClass.StringToInt(carPath.get(i).getLat()), AllStaticClass.StringToInt(carPath.get(i).getLon()));
@@ -634,11 +646,20 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	 * @param index
 	 */
 	private void LocusNow(int index){
+		GeoPoint stopPoint = new GeoPoint(AllStaticClass.StringToInt(carPath.get(index).getLat()),AllStaticClass.StringToInt(carPath.get(index).getLon()));
+		//TODO 划线
+		if(index != 0){
+			GeoPoint startPoint = new GeoPoint(AllStaticClass.StringToInt(carPath.get(index - 1).getLat()), AllStaticClass.StringToInt(carPath.get(index - 1).getLon()));
+			LineOverlay myOverlay = new LineOverlay(startPoint, stopPoint);
+			mapOverLays.add(myOverlay);
+			pathOverlays.add(myOverlay);
+		}		
+		//移动图标
 		Log.d(TAG, "index="+index);
 		if(moveLocusOverlay != null){
 			mapOverLays.remove(moveLocusOverlay);
 		}
-		GeoPoint stopPoint = new GeoPoint(AllStaticClass.StringToInt(carPath.get(index).getLat()), AllStaticClass.StringToInt(carPath.get(index).getLon()));
+		//GeoPoint stopPoint = new GeoPoint(AllStaticClass.StringToInt(carPath.get(index).getLat()), AllStaticClass.StringToInt(carPath.get(index).getLon()));
 		int CarStatus = carPath.get(index).getCarStatus();
 		String Direct = carPath.get(index).getDirect();
 		Drawable drawable = AllStaticClass.DrawableBimpMap(AVTActivity.this, CarStatus,Direct);
@@ -688,7 +709,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 			if(meOverlay != null){
 				mapOverLays.remove(meOverlay);
 			}
-			Drawable drawable = getResources().getDrawable(R.drawable.car);
+			Drawable drawable = getResources().getDrawable(R.drawable.icon_locr);
 			meOverlay = new MeOverlay(gp, GetSystem.drawableToBitmap(drawable), Accuracy);
 	        mapOverLays.add(meOverlay);
 		}catch (Exception e) {
@@ -885,7 +906,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 						} else if (!AllStaticClass.LimitTime(et_start.getText().toString(),et_stop.getText().toString())) {
 							Toast.makeText(AVTActivity.this,R.string.car_dialog_time_limit,Toast.LENGTH_SHORT).show();
 						} else {
-							Dialog = ProgressDialog.show(AVTActivity.this,getString(R.string.AllCarInfoActivity_serach_pd_title),getString(R.string.monitor_locus_load),true);
+							Dialog = ProgressDialog.show(AVTActivity.this,getString(R.string.serach_pd_title),getString(R.string.monitor_locus_load),true);
 							//查询轨迹前重置数据
 							iv_play.setEnabled(true);
 							IsFristLocus = true;
@@ -1103,8 +1124,8 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 					return;
 				}else{
 					if(newpwd.equals(newpwdtoo)){
-						Dialog = ProgressDialog.show(AVTActivity.this,getString(R.string.AllCarInfoActivity_login_pd_title),getString(R.string.change_pwd_now),true);
-						String urlString = Config.url + "customer/user/password?auth_code=" + auth_code + "&number_type="+number_type;
+						Dialog = ProgressDialog.show(AVTActivity.this,getString(R.string.login),getString(R.string.change_pwd_now),true);
+						String urlString = Url + "customer/user/password?auth_code=" + auth_code + "&number_type="+number_type;
 						List<NameValuePair> params1 = new ArrayList<NameValuePair>();
 						params1.add(new BasicNameValuePair("user_name",Config.account));
 						params1.add(new BasicNameValuePair("old_password",GetSystem.getM5DEndo(LoginPws)));
@@ -1383,7 +1404,6 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 			public void beforeTextChanged(CharSequence s, int start, int count,int after) {	}
 			public void afterTextChanged(Editable s) {}
 		});
-		tv_statistic = (TextView)mapView.findViewById(R.id.tv_statistic);
 		tv_map_change = (TextView)mapView.findViewById(R.id.tv_map_change);
 		tv_address = (TextView)mapView.findViewById(R.id.tv_address);
 		tv_map_change.setOnClickListener(OCL);
@@ -1430,7 +1450,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				MapView.LayoutParams.WRAP_CONTENT, null,0,0,
 				MapView.LayoutParams.BOTTOM_CENTER));
 		popView.setVisibility(View.GONE);
-		Dialog = ProgressDialog.show(AVTActivity.this,getString(R.string.AllCarInfoActivity_serach_pd_title),getString(R.string.AllCarInfoActivity_serach_pd_context), true);
+		Dialog = ProgressDialog.show(AVTActivity.this,getString(R.string.serach_pd_title),getString(R.string.serach_pd_context), true);
 		String url = Url + "customer/" + cust_id + "/customer?auth_code=" + auth_code + "&tree_path=" + tree_path + "&page_no=1&page_count=100";
 		new Thread(new NetThread.GetDataThread(handler, url, GetContacter)).start();
 		String poiUrl = Url + "customer/" + cust_id + "/poi?auth_code=" + auth_code + "&is_geo=0&page_no=1&page_count=100";

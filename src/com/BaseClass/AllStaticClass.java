@@ -38,7 +38,7 @@ public class AllStaticClass {
 		return drawable;
 	}
 	public static BitmapDrawable DrawableBimpMap(Context context ,int CarStatus , String Rotate){
-		Bitmap car_bad = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_bad);
+		Bitmap car_alert = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_alert);
 		Bitmap car_out = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_out);
 		Bitmap car_off = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_off);
 		Bitmap car_on = BitmapFactory.decodeResource(context.getResources(),R.drawable.car_on);
@@ -46,7 +46,7 @@ public class AllStaticClass {
 		if(CarStatus == 1){
 			return DrawableBimp(rotate, car_out);
 		}else if(CarStatus == 2){
-			return DrawableBimp(rotate, car_bad);
+			return DrawableBimp(rotate, car_alert);
 		}else if(CarStatus == 3){
 			return DrawableBimp(rotate, car_on);
 		}else{
@@ -69,23 +69,12 @@ public class AllStaticClass {
 			// 缩放图片动作
 			matrix.postScale(scaleWidth, scaleHeight); 
 			//旋转图片 动作
-			//matrix.postRotate(rotate); 
 			matrix.postRotate(rotate, (float)width/2, (float)height/2);
 			// 创建新的图片
 			Bitmap resizedBitmap = Bitmap.createBitmap(bitmapOrg, 0, 0, width, height, matrix, true); 
 			//将上面创建的Bitmap转换成Drawable对象，使得其可以使用在ImageView, ImageButton中
 			BitmapDrawable bmd = new BitmapDrawable(resizedBitmap); 
-			
-			//System.out.println(width + "   " + height + "   ");
 			return bmd;
-	}
-	private static boolean SearchAlarm(String status , String[] alarm){
-		for(int i = 0 ; i < alarm.length ; i++){
-			if(status.indexOf(alarm[i])>=0){
-				return true;
-			}
-		}
-		return false;
 	}
 	/**
 	 * 验证时间是否在范围内

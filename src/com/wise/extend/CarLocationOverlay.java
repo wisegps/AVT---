@@ -95,7 +95,6 @@ public class CarLocationOverlay extends ItemizedOverlay<OverlayItem> {
 	}
 	// µã»÷Ê±´¥·¢
 	protected boolean onTap(int index) {
-		System.out.println(""+item);
 		mAvtActivity.ChooseCar(item,0);
 		return true;
 	}

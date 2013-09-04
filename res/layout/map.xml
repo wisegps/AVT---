@@ -31,7 +31,7 @@
 		            android:layout_height="40dp"
 		            android:padding="10dp"
 		            android:visibility="gone"
-		            android:contentDescription="@string/PicNote"
+		            android:contentDescription="@string/image_description"
 		            android:layout_alignParentRight="true"
 		            android:layout_centerVertical="true"
 		            android:src="@drawable/delete"/>
@@ -40,17 +40,16 @@
 		        android:id="@+id/iv_Me"
 		        android:layout_width="40dp"
 		        android:layout_height="40dp"
-		        android:contentDescription="@string/PicNote"
+		        android:contentDescription="@string/image_description"
 		        android:layout_alignParentRight="true"
 		        android:layout_centerVertical="true"
 		        android:src="@drawable/myplaces"/>
-	</RelativeLayout>
-	    
+	</RelativeLayout>	    
     <ImageView 
         android:id="@+id/iv_Search"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:contentDescription="@string/PicNote"
+        android:contentDescription="@string/image_description"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:src="@drawable/trun_left"/>
@@ -59,25 +58,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_search">
         <TextView 
-		    android:id="@+id/tv_address"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentLeft="true"
-		    android:layout_toLeftOf="@+id/tv_map_change"
-		    android:background="@drawable/bg_address"
-		    android:textSize="15dp"
-		    android:paddingLeft="5dp"
-		    android:paddingRight="5dp"
-		    android:layout_marginRight="5dp"
-		    android:textColor="#FFFFFF"
-		    android:gravity="center_vertical"
-		    android:text="@string/Location"/>
-        <TextView 
 		    android:id="@+id/tv_map_change"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentRight="true"
-		    android:textSize="15dp"
+		    android:textSize="14sp"
 		    android:paddingLeft="5dp"
 		    android:paddingRight="5dp"
 		    android:layout_marginTop="1dp"
@@ -91,7 +76,7 @@
         android:layout_height="40dp"
         android:layout_width="50dp"
         android:background="@drawable/bt_bg_down"
-        android:layout_above="@+id/tv_statistic"
+        android:layout_above="@+id/tv_address"
         android:layout_toLeftOf="@+id/bt_ZoomUp"/>
     <Button 
         android:id="@+id/bt_ZoomUp"
@@ -99,14 +84,14 @@
         android:layout_width="50dp"
         android:layout_marginRight="5dp"
         android:background="@drawable/bt_bg_up"
-        android:layout_above="@+id/tv_statistic"
+        android:layout_above="@+id/tv_address"
         android:layout_alignParentRight="true"/>
     <TextView 
-    	android:id="@+id/tv_statistic"
+    	android:id="@+id/tv_address"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:layout_marginTop="5dp"
-    	android:textSize="15dp"
+    	android:textSize="12sp"
     	android:layout_alignParentBottom="true"
     	android:textColor="#FFFFFF"
     	android:background="@drawable/bg_address"/>
@@ -127,21 +112,21 @@
 			    android:id="@+id/iv_play"
 			    android:layout_width="40dp"
 			    android:layout_height="40dp"
-			    android:contentDescription="@string/PicNote"
+			    android:contentDescription="@string/image_description"
 			    android:layout_marginRight="5dp"
 			    android:src="@drawable/play"/>
 			<ImageView 
 			    android:id="@+id/iv_pause"
 			    android:layout_width="40dp"
 			    android:layout_height="40dp"
-			    android:contentDescription="@string/PicNote"
+			    android:contentDescription="@string/image_description"
 			    android:layout_marginRight="5dp"
 			    android:src="@drawable/pause"/>
 			<ImageView 
 			    android:id="@+id/iv_stop"
 			    android:layout_width="40dp"
 			    android:layout_height="40dp"
-			    android:contentDescription="@string/PicNote"
+			    android:contentDescription="@string/image_description"
 			    android:layout_marginRight="5dp"
 			    android:src="@drawable/stop"/>
 			<TextView 

@@ -96,8 +96,8 @@ public class LoginActivity extends Activity{
 					Toast.makeText(LoginActivity.this, R.string.Login_null, Toast.LENGTH_LONG).show();
 				}else{
 					String url = Config.url + "login?username=" + LoginName + "&password=" + GetSystem.getM5DEndo(LoginPws) +"&mac=" + GetSystem.getMacAddress(LoginActivity.this);
-					Dialog = ProgressDialog.show(LoginActivity.this,getString(R.string.AllCarInfoActivity_login_pd_title),
-							getString(R.string.AllCarInfoActivity_login_pd_context),true);
+					Dialog = ProgressDialog.show(LoginActivity.this,getString(R.string.login),
+							getString(R.string.login_pd_context),true);
 					new Thread(new NetThread.GetDataThread(handler, url, Login)).start();
 				}
 				break;
@@ -115,9 +115,9 @@ public class LoginActivity extends Activity{
 			if(jsonObject.opt("auth_code") == null){
 				String status_code = jsonObject.getString("status_code");
 				if(status_code.equals("5")){
-					Toast.makeText(getApplicationContext(), "该账号已绑定其他手机", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), R.string.accout_bind_phone, Toast.LENGTH_LONG).show();
 				}else if(status_code.equals("2") || status_code.equals("1")){
-					Toast.makeText(getApplicationContext(), R.string.AllCarInfoActivity_login_id_wrong, Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), R.string.login_id_wrong, Toast.LENGTH_LONG).show();
 				}else{
 					//setNetworkMethod();
 				}

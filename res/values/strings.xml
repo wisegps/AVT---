@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    
+<resources>    
+	<string name="app_name">Tracknet</string>
     <string name="Note">Notice</string>
-    <string name="image_description">Pic</string>
+    <string name="image_description">Pic</string>    
     <!-- 登录 -->
     <string name="Google">google map cannot use</string>
-	<string name="app_name">Tracknet</string>
     <string name="copyright">Copyright by Tracknet Asia</string>
     <string name="account_hit">Please enter the account</string>
     <string name="password_hit">Please enter the password</string>
-    <string name="PicNote">pic</string>
     <string name="login">login</string>
     <string name="check_pwd">Remember Password</string>    
-    <string name="AllCarInfoActivity_login_pd_context">Signing on,pls wait.</string>
-    <string name="AllCarInfoActivity_login_id_wrong">Account or password is wrong, pls retry</string>
+    <string name="login_pd_context">Signing on,pls wait.</string>
+    <string name="login_id_wrong">Account or password is wrong, pls retry</string>
     <string name="Login_null">Account and password cannot be empty, pls retry</string>
-    <string name="exit_content">Confirm to exit?</string>
-    
-    
+    <string name="accout_bind_phone">the account bind a phone</string>    
+    <!-- 主页面 -->
+    <string name="exit_content">Confirm to exit?</string>    
     <string name="monitor_car">Trace</string>
     <string name="monitor_locus">Playback</string>
     <string name="locus_dialog_start">Start Time:</string>
@@ -29,51 +27,49 @@
     <string name="car_dialog_et_null">Start time and end time cannot be empty</string>
     <string name="car_dialog_time_wrong">The starting time is not greater than end time</string>
     <string name="car_dialog_time_limit">The time period cannot be more than 24 hrs</string>
-    <string name="time_choose">Select Time</string>
-    
+    <string name="time_choose">Select Time</string>    
+    <string name="monitor_locus_load">Getting historical data.</string>
+    <string name="monitor_locus_null">Historical data is empty</string>
     <string name="Location_wrong">Locate an exception</string>
     <string name="allcar_config">Option</string>
     <string name="bt_updatePwd">Modify Password</string>
-    <string name="Proposal">Feedback</string>
     
     <!-- 配置界面 -->
    	<string name="is_ref">Enable Auto Refresh: Yes / No</string>
    	<string name="is_ref_yes">yes</string>
    	<string name="is_ref_no">no</string>   	
    	<string name="config_update_time">Refresh Interval (sec)</string>
-    <string name="config_update_in_xml_ok">Save setting information successfully</string>
+    <string name="config_update_in_xml_ok">Save setting information successfully</string>    
     
-    <string name="bt_proposal_up">Send</string>
-    <string name="bt_proposal_load">Send feedback.</string>
-   	<string name="proposal_up_ok">Send feedback successfully.</string>
-   	<string name="AllCarInfoActivity_login_net_outtime">Connection is timeout, pls retry</string>
-   	
    	<string name="oldPassWord">Old Pass: </string>
     <string name="newPassWord">New Pass：</string>
     <string name="newPassWordToo">New Pass Confirm：</string>
     <string name="changePwd_title">Modify Password</string>
     <string name="change_pwd_null">Password cannot be empty, pls input.</string>
     <string name="change_pwd_TwoNewPwd_false">Password confirmation is wrong, pls input again.</string>
+    <string name="change_pwd_now">Changing password, pls wait.</string>
     <string name="change_pwd_true">Password changed successfully.</string>
     <string name="change_pwd_false">Password changed failure, pls retry.</string>
     
-    <string name="AllCarInfoActivity_serach_pd_title">Getting data</string>
-    <string name="AllCarInfoActivity_serach_pd_context">Getting data, pls wait.</string>
-    <string name="AllCarInfoActivity_search_null">Data not found</string>
-    
-    <string name="total">TOTAL</string>
-   	<string name="alarm">Alarm</string>
+    <string name="serach_pd_title">Getting data</string>
+    <string name="serach_pd_context">Getting data, pls wait.</string>
+    <string name="search_null">Data not found</string>
     
     <string name="Traffic">Map</string>
     <string name="Satellite">Satellite</string>
     <string name="Location">Location get in.</string>
-    
-    <string name="AllCarInfoActivity_login_pd_title">Sign in</string>
-    <string name="change_pwd_now">Changing password, pls wait.</string>
-    <string name="monitor_locus_load">Getting historical data.</string>
-    <string name="monitor_locus_null">Historical data is empty</string>
+   	 
+   	<string name="car_speed">Speed: </string> 
+   	<string name="car_mileage">Odo: </string> 
    	
-	<string-array name="alarm">
+   	<string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>    
+   	
+	<string-array name="alarm1">
    		<item>SOS</item>
    		<item>GPS Cut</item>
    		<item>Over Speed</item>
@@ -85,17 +81,8 @@
    		<item>Engine Stop</item>
    	</string-array>
    	
+    <string name="total">TOTAL</string>
+   	<string name="alarm">Alarm</string>   	
    	<string name="accon">ACC On</string>
    	<string name="accoff">ACC OFF</string>
-   	
-   	<!-- ;;是分隔符，必须 --> 
-   	<string name="car_speed">Speed: </string> 
-   	<string name="car_mileage">Odo: </string> 
-   	
-   	<string name="xlistview_header_hint_normal">下拉刷新</string>
-    <string name="xlistview_header_hint_ready">松开刷新数据</string>
-    <string name="xlistview_header_hint_loading">正在加载...</string>
-    <string name="xlistview_header_last_time">上次更新时间：</string>
-    <string name="xlistview_footer_hint_normal">查看更多</string>
-    <string name="xlistview_footer_hint_ready">松开载入更多</string>
 </resources>

@@ -15,12 +15,12 @@
        android:layout_height="wrap_content"
        android:singleLine="true" 
        android:textColor="#000000"
-       android:textSize="16dp"/>
+       android:textSize="14sp"/>
     <TextView 
-	    android:id="@+id/my_line"
-	    android:layout_width="fill_parent"
-	    android:layout_height="1px"
-	    android:background="@drawable/repeat_bg"/>
+        android:id="@+id/my_line"
+        android:layout_width="fill_parent"
+		android:layout_height="1dp"
+		android:background="#e5e5e5"/>
     <TextView 
        android:id="@+id/pop_car_GpsTime" 
        android:ellipsize="marquee" 
@@ -28,7 +28,7 @@
        android:layout_height="wrap_content"
        android:singleLine="true" 
        android:textColor="#000000"
-       android:textSize="16dp"/>
+       android:textSize="14sp"/>
     <TextView 
        android:id="@+id/pop_car_MSTStatus" 
        android:ellipsize="marquee" 
@@ -36,7 +36,7 @@
        android:layout_height="wrap_content"
        android:singleLine="true" 
        android:textColor="#000000"
-       android:textSize="16dp"/>
+       android:textSize="14sp"/>
     <TextView 
        android:id="@+id/pop_car_Speed" 
        android:ellipsize="marquee" 
@@ -44,7 +44,7 @@
        android:layout_height="wrap_content"
        android:singleLine="true" 
        android:textColor="#000000"
-       android:textSize="16dp"/>
+       android:textSize="14sp"/>
     <TextView 
        android:id="@+id/pop_car_Mileage" 
        android:ellipsize="marquee" 
@@ -52,7 +52,7 @@
        android:layout_height="wrap_content"
        android:singleLine="true" 
        android:textColor="#000000"
-       android:textSize="16dp"/>
+       android:textSize="14sp"/>
     <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             android:id="@+id/bt_menu_car"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="#0000FF"
             android:background="@android:color/transparent"
             android:text="@string/monitor_car"/>
@@ -69,7 +69,7 @@
             android:id="@+id/bt_monitor_locus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="#0000FF"
             android:layout_marginLeft="10dp"
             android:gravity="center_horizontal"

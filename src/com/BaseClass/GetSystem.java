@@ -64,20 +64,6 @@ public class GetSystem {
 		return hexValue.toString();
 	}
 	/**
-	 * 经纬度格式转换,把服务器得到的string转成int类型
-	 * @param string 116.000000
-	 * @return 116000000
-	 */
-	public static int StringToInt(String str) {
-		try {
-			Double point_doub = Double.parseDouble(str);
-			return (int) (point_doub * 1000000);
-		} catch (NumberFormatException e) {
-			Log.d(TAG, "经纬度格式转换异常：NumberFormatException");
-			return 0;
-		}
-	}
-	/**
 	 * 修改时间格式,加上8小时时区
 	 * @param str yyyy-mm-ddThh:mm:ssz0000
 	 * @param witch 0，返回时间。1返回日期
