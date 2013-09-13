@@ -14,11 +14,13 @@
         android:layout_below="@+id/s_contacter">
         <AutoCompleteTextView 
 		    android:id="@+id/et_ListSearch"
-		    android:layout_width="fill_parent"
+		    android:layout_width="fill_parent"		    
+		    android:layout_height="wrap_content"
 		    android:layout_marginTop="4dp"
 		    android:paddingRight="40dp"
+		    android:paddingLeft="40dp"
 		    android:singleLine="true"
-		    android:layout_height="wrap_content"/>
+		    android:hint="@string/search_hit"/>
         <ImageView 
             android:id="@+id/iv_ListClear"
             android:layout_width="40dp"
@@ -29,6 +31,14 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/delete"/>
+        <ImageView 
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:contentDescription="@string/image_description"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/search"/>
     </RelativeLayout>
     <com.wise.list.XListView
         android:id="@+id/lv_cars"

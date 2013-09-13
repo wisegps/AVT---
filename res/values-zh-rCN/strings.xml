@@ -2,10 +2,13 @@
 <resources>    
 	<string name="app_name">车联在线</string>
     <string name="Note">提示</string>
-    <string name="image_description">图片</string>    
+    <string name="image_description">图片</string>
+    <!-- 起始页 -->
+    <string name="last_update">last update 2013-09-10</string>
+    <string name="copyright1">Copyright by Tracknet Asia</string>
+    <string name="copyright2">2011-2012</string>
     <!-- 登录 -->
     <string name="Google">google地图不可用</string>
-    <string name="copyright">Copyright by Tracknet Asia</string>
     <string name="account_hit">请输入账号</string>
     <string name="password_hit">请输入密码</string>
     <string name="login">登录</string>
@@ -14,8 +17,8 @@
     <string name="login_id_wrong">账号密码不匹配，请再次尝试</string>
     <string name="Login_null">用户名和密码不能为空，请重试。</string>
     <string name="accout_bind_phone">该账号已绑定其他手机</string>
-    <!-- 主页面 -->
-    <string name="exit_content">你确定退出监控系统吗?</string>    
+    <!-- 主页面 -->        
+    <string name="search_hit">请输入搜索内容</string>
     <string name="monitor_car">跟踪</string>
     <string name="monitor_locus">轨迹回放</string>
     <string name="locus_dialog_start">开始时间:</string>

@@ -23,7 +23,9 @@
 				    android:layout_width="fill_parent"
 				    android:layout_marginTop="4dp"
 				    android:paddingRight="40dp"
+				    android:paddingLeft="40dp"
 				    android:singleLine="true"
+				    android:hint="@string/search_hit"
 				    android:layout_height="wrap_content"/>
 		        <ImageView 
 		            android:id="@+id/iv_MapClear"
@@ -35,6 +37,14 @@
 		            android:layout_alignParentRight="true"
 		            android:layout_centerVertical="true"
 		            android:src="@drawable/delete"/>
+		        <ImageView 
+		            android:layout_width="40dp"
+		            android:layout_height="40dp"
+		            android:padding="10dp"
+		            android:contentDescription="@string/image_description"
+		            android:layout_alignParentLeft="true"
+		            android:layout_centerVertical="true"
+		            android:src="@drawable/search"/>
 		    </RelativeLayout>
 		    <ImageView 
 		        android:id="@+id/iv_Me"

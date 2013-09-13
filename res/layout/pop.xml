@@ -4,10 +4,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/bubble_background"
-    android:paddingLeft="10px"
-    android:paddingTop="10px"
-    android:paddingRight="10px"
-    android:paddingBottom="25px">
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="25dp">
     <TextView 
        android:id="@+id/pop_car_id" 
        android:ellipsize="marquee" 

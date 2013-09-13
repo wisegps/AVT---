@@ -2,10 +2,13 @@
 <resources>    
 	<string name="app_name">Tracknet</string>
     <string name="Note">Notice</string>
-    <string name="image_description">Pic</string>    
+    <string name="image_description">Pic</string>
+    <!-- 起始页 -->
+    <string name="last_update">last update 2013-09-10</string>
+    <string name="copyright1">Copyright by Tracknet Asia</string>
+    <string name="copyright2">2011-2012</string>    
     <!-- 登录 -->
     <string name="Google">google map cannot use</string>
-    <string name="copyright">Copyright by Tracknet Asia</string>
     <string name="account_hit">Please enter the account</string>
     <string name="password_hit">Please enter the password</string>
     <string name="login">login</string>
@@ -15,6 +18,7 @@
     <string name="Login_null">Account and password cannot be empty, pls retry</string>
     <string name="accout_bind_phone">the account bind a phone</string>    
     <!-- 主页面 -->
+    <string name="search_hit">Pls enter content</string>
     <string name="exit_content">Confirm to exit?</string>    
     <string name="monitor_car">Trace</string>
     <string name="monitor_locus">Playback</string>

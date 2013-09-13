@@ -53,16 +53,12 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.GestureDetector.OnGestureListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -81,7 +77,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-public class AVTActivity extends MapActivity implements OnGestureListener,IXListViewListener{	
+public class AVTActivity extends MapActivity implements IXListViewListener{	
 	private final String TAG = "AVTActivity";
 	
 	private final int GetContacter = 1;  //获取用户组信息
@@ -98,7 +94,6 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	private final int GetNextLocus = 12; //当前一段播放完毕，加载另一段
 	//控件
 	ViewFlipper flipper;
-	GestureDetector gestureScanner;
 	Spinner s_contacter;
 	XListView lv_cars;
 	AutoCompleteTextView ListAutoComplete,MapAutoComplete;
@@ -247,7 +242,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				MapAutoComplete.setText("");
 				break;
 			case R.id.bt_menu_car://跟踪功能
-				if (ISSEARCH) {//取消跟踪
+				if (ISSEARCH) {//TODO 取消跟踪
 					ISSEARCH = false;
 					System.gc();
 					ClearOverlay(pathOverlays);//删除轨迹线
@@ -322,9 +317,9 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 					new Thread(new UpdateMain()).start();
 				}
 				break;			
-			case UPDATEMAIN://定时刷新所有车辆信息
+			case UPDATEMAIN://TODO 定时刷新所有车辆信息
 				try {
-					String RefreshUrl = "http://42.121.53.152/customer/" + cust_id + "/active_gps_data?auth_code=" + auth_code + "&update_time=" + 
+					String RefreshUrl = Url +"customer/" + cust_id + "/active_gps_data?auth_code=" + auth_code + "&update_time=" + 
 							URLEncoder.encode(latestTime, "utf-8") + "&mode=all&tree_path=" + contacterDatas.get(contacter_item).getTree_path();
 					new Thread(new NetThread.GetDataThread(handler, RefreshUrl, GetRefreshData)).start();
 				} catch (UnsupportedEncodingException e1) {
@@ -589,7 +584,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				carInfo.setSpeed((int)Double.parseDouble(jsonData.getString("speed")));
 				carInfo.setRcv_time(GetSystem.ChangeTime(jsonData.getString("rcv_time"),0));
 				//String status = ResolveData.getStatusDesc(rcv_time, gps_flag, speed, ResolveData.getUniStatusDesc(jsonArrayStatus), ResolveData.getUniAlertsDesc(jsonArrayAlerts));
-	    		//TODO carInfo.setMDTStatus(status);
+	    		//carInfo.setMDTStatus(status);
 				carPath.add(carInfo);
 				Log.d(TAG, carInfo.toString());
 			}				
@@ -602,7 +597,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 					IsFristLocus = false;
 					layout_bar.setVisibility(View.VISIBLE);//显示轨迹控制条
 					bar.setMax(Integer.valueOf(jsonObject.getString("total")));	
-					ClearOverlay(carOverlays);//TODO 删除车辆标记
+					ClearOverlay(carOverlays);//删除车辆标记
 					ClearOverlay(pathOverlays);//删除轨迹
 				}
 			}else{
@@ -629,7 +624,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	 */
 	private void locus1() {	
 		IsLock = true;
-		ClearOverlay(carOverlays);//TODO 删除车辆标记
+		ClearOverlay(carOverlays);//删除车辆标记
 		ClearOverlay(pathOverlays);//删除轨迹
 		for (int i = 0; i < carPath.size() - 1; i++) {//循环画出轨迹线
 			GeoPoint startPoint = new GeoPoint(AllStaticClass.StringToInt(carPath.get(i).getLat()), AllStaticClass.StringToInt(carPath.get(i).getLon()));
@@ -647,7 +642,6 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	 */
 	private void LocusNow(int index){
 		GeoPoint stopPoint = new GeoPoint(AllStaticClass.StringToInt(carPath.get(index).getLat()),AllStaticClass.StringToInt(carPath.get(index).getLon()));
-		//TODO 划线
 		if(index != 0){
 			GeoPoint startPoint = new GeoPoint(AllStaticClass.StringToInt(carPath.get(index - 1).getLat()), AllStaticClass.StringToInt(carPath.get(index - 1).getLon()));
 			LineOverlay myOverlay = new LineOverlay(startPoint, stopPoint);
@@ -803,7 +797,6 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				String Regnum = ListAutoComplete.getText().toString();
 				for(int i = 0 ; i < carinfos.size() ; i++){
 					if(carinfos.get(i).getObj_name().equals(Regnum)){
-						lv_cars.setSelection(i); //定位到对应行
 						//选中对应车辆
 						ChooseCar(i,1);
 						break;
@@ -819,8 +812,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 				String Regnum = MapAutoComplete.getText().toString();
 				for(int i = 0 ; i < carinfos.size() ; i++){
 					if(carinfos.get(i).getObj_name().equals(Regnum)){
-						ChooseCar(i,1);
-						lv_cars.setSelection(i);
+						ChooseCar(i,0);
 						break;
 					}
 				}
@@ -973,24 +965,22 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 	private OnItemClickListener OICL = new OnItemClickListener() {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
 			flipper.setDisplayedChild(1);
-			ChooseCar((arg2 - 1),0);
+			ChooseCar((arg2 - 1),1);
 		}
 	};
 	/**
 	 * 切换车辆
 	 * @param arg
-	 * @param where 0，列表 1，地图
+	 * @param where 0，地图 1，列表
 	 */
 	public void ChooseCar(int arg,int where){
+		lv_cars.setSelection(arg); //定位到对应行
 		carAdapter.setSelectItem(arg);
 		carAdapter.notifyDataSetInvalidated();
 		if(arg != item){
 			item = arg;
 			//获取位置
 			new Thread(new NetThread.GetLocation(carinfos.get(arg).getLat(), carinfos.get(arg).getLon(), handler,GetLocation,AVTActivity.this)).start();		
-			//选中车辆
-			carAdapter.setSelectItem(arg);
-			//carAdapter.notifyDataSetInvalidated();
 			if(ISSEARCH){//如果在监控则停止监控
 				ISSEARCH = false;			
 				ClearOverlay(carOverlays);//删除汽车标记
@@ -1308,26 +1298,7 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 		return false;
 	}
 	public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX,float velocityY) {
-		try {
-			if (me1.getX() - me2.getX() > 120 && Math.abs(velocityX) > 0) {
-				// 设置View进入屏幕时使用的动画
-				this.flipper.setInAnimation(AnimationUtils.loadAnimation(this,R.anim.left_in));
-				// 设置View出屏幕时使用的动画
-				this.flipper.setOutAnimation(AnimationUtils.loadAnimation(this,R.anim.left_out));
-				// 显示下一个View
-				this.flipper.showNext();
-				return true;
-			} else if (me1.getX() - me2.getX() < -120 && Math.abs(velocityX) > 0) {
-				this.flipper.setInAnimation(AnimationUtils.loadAnimation(this,R.anim.right_in));
-				this.flipper.setOutAnimation(AnimationUtils.loadAnimation(this,R.anim.right_out));
-				// 显示上一个View
-				this.flipper.showPrevious();
-				return true;
-			}
-			return false;
-		} catch (Exception e) {
-			return false;
-		}
+		return false;
 	}
 	public void onLongPress(MotionEvent e) {}
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,float distanceY) {
@@ -1338,8 +1309,6 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 		return false;
 	}
     private void init(){
-    	//手势控件
-        gestureScanner = new GestureDetector(this);
 		flipper = (ViewFlipper) this.findViewById(R.id.viewFlipper);
 		LayoutInflater mLayoutInflater = LayoutInflater.from(AVTActivity.this);		
 		//搜索
@@ -1357,12 +1326,6 @@ public class AVTActivity extends MapActivity implements OnGestureListener,IXList
 		lv_cars.setPullRefreshEnable(false);
 		lv_cars.setXListViewListener(this);
 		lv_cars.setOnItemClickListener(OICL);
-		lv_cars.setOnTouchListener(new OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				AVTActivity.this.gestureScanner.onTouchEvent(event);
-				return false;
-			}
-		});
 		ListAutoComplete = (AutoCompleteTextView) searchView.findViewById(R.id.et_ListSearch);
 		ListAutoComplete.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
